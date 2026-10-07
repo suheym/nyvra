@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+psycopg2-binary
+python-dotenv
+joblib
+numpy
+pandas
+scikit-learn
+xgboost
+imbalanced-learn
+spacy
+vaderSentiment
+clerk-backend-api
