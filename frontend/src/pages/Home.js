@@ -5,6 +5,7 @@ import React, {
   useCallback
 } from 'react';
 import { useAuth, useUser, UserButton } from '@clerk/react';
+import { useNavigate } from 'react-router-dom';
 import { createApiClient } from '../api';
 
 function GaugeMeter({ value, risk }) {
@@ -264,6 +265,10 @@ function Home() {
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [breakdownDetails, setBreakdownDetails] = useState(null);
 
+  // Onboarding visibility state: only true when history has loaded and has no entries
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  const navigate = useNavigate();
   const { getToken } = useAuth();
   const { user } = useUser();
 
@@ -295,6 +300,9 @@ function Home() {
 
   const processWellnessState = useCallback((journalEntries, habitEntries) => {
     setStreak(habitEntries.length);
+
+    const hasStarted = journalEntries.length > 0 || habitEntries.length > 0;
+    setShowOnboarding(!hasStarted);
 
     let latestSavedHabit = null;
     if (habitEntries.length > 0) {
@@ -374,6 +382,7 @@ function Home() {
         processWellnessState(journalEntries, habitEntries);
       } catch (err) {
         if (!cancelled) {
+          setShowOnboarding(false);
           setResult({
             score: 0,
             risk: 'Unavailable',
@@ -555,16 +564,36 @@ function Home() {
         <div style={styles.headerLeft}>
           <button
             type="button"
-            style={styles.menuButton}
-            aria-label="Open menu"
+            style={styles.helpButton}
+            aria-label="Help and FAQs"
+            onClick={() => navigate('/help')}
           >
-            <span style={styles.menuLine}></span>
-            <span style={styles.menuLine}></span>
-            <span style={styles.menuLine}></span>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
           </button>
 
           <div style={styles.logoRow}>
-            <span style={{ fontSize: '20px' }}>🌿</span>
+            <img
+              src="/nyvra-mark.svg"
+              alt="Nyvra"
+              style={{
+                width: '30px',
+                height: '30px',
+                objectFit: 'contain'
+              }}
+            />
             <span style={styles.logoText}>Nyvra</span>
           </div>
         </div>
@@ -687,6 +716,58 @@ function Home() {
 
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Getting Started with Nyvra Card (rendered only when no entries exist) */}
+      {showOnboarding && (
+        <div style={styles.onboardingCard}>
+          <div style={styles.onboardingHeader}>
+            <h3 style={styles.onboardingTitle}>
+              🌱 Getting started with Nyvra
+            </h3>
+            <p style={styles.onboardingSub}>
+              Build a clearer picture of your wellness over time.
+            </p>
+          </div>
+
+          <div style={styles.stepsContainer}>
+            <div style={styles.stepItem}>
+              <div style={styles.stepBadge}>1</div>
+              <div style={styles.stepContent}>
+                <span style={styles.stepTitle}>Track your habits</span>
+                <p style={styles.stepDesc}>
+                  Check in regularly with your sleep, diet, stress, social connection, and work or study hours.
+                </p>
+              </div>
+            </div>
+
+            <div style={styles.stepItem}>
+              <div style={styles.stepBadge}>2</div>
+              <div style={styles.stepContent}>
+                <span style={styles.stepTitle}>Journal naturally</span>
+                <p style={styles.stepDesc}>
+                  Write honestly about your day and how you're feeling. There is no right way to journal.
+                </p>
+              </div>
+            </div>
+
+            <div style={styles.stepItem}>
+              <div style={styles.stepBadge}>3</div>
+              <div style={styles.stepContent}>
+                <span style={styles.stepTitle}>Review your trends</span>
+                <p style={styles.stepDesc}>
+                  Consistent check-ins over time can provide more useful personal context than a single day's result.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div style={styles.tipDivider} />
+
+          <p style={styles.tipText}>
+            <strong style={{ color: '#5B3FD1' }}>Tip:</strong> You don't need to use Nyvra for a specific number of days. Regular check-ins simply give you more information about your personal patterns and trends.
+          </p>
         </div>
       )}
 
@@ -964,25 +1045,18 @@ const styles = {
     gap: '12px'
   },
 
-  menuButton: {
-    width: '30px',
-    height: '30px',
-    padding: '5px 3px',
+  helpButton: {
+    width: '32px',
+    height: '32px',
     border: 'none',
     background: 'transparent',
+    color: '#555b6e',
     display: 'flex',
-    flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'center',
-    gap: '4px',
-    cursor: 'pointer'
-  },
-
-  menuLine: {
-    display: 'block',
-    width: '19px',
-    height: '1.8px',
-    borderRadius: '2px',
-    background: '#303444'
+    cursor: 'pointer',
+    borderRadius: '50%',
+    padding: 0
   },
 
   logoRow: {
@@ -1132,6 +1206,94 @@ const styles = {
   statSub: {
     fontSize: '11px',
     color: '#8a8f9f'
+  },
+
+  /* Getting Started Card Styles */
+  onboardingCard: {
+    background: '#f8f7ff',
+    borderRadius: '18px',
+    padding: '18px 20px',
+    margin: '12px 16px',
+    border: '1px solid #e7e2ff',
+    boxShadow: '0 3px 14px rgba(91, 63, 209, 0.04)'
+  },
+
+  onboardingHeader: {
+    marginBottom: '14px'
+  },
+
+  onboardingTitle: {
+    fontSize: '15px',
+    fontWeight: '700',
+    color: '#25283a',
+    margin: '0 0 3px 0'
+  },
+
+  onboardingSub: {
+    fontSize: '12px',
+    color: '#858a99',
+    margin: 0,
+    lineHeight: '1.4'
+  },
+
+  stepsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px'
+  },
+
+  stepItem: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '10px'
+  },
+
+  stepBadge: {
+    width: '20px',
+    height: '20px',
+    borderRadius: '50%',
+    backgroundColor: '#5B3FD1',
+    color: '#ffffff',
+    fontSize: '11px',
+    fontWeight: '700',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    marginTop: '2px'
+  },
+
+  stepContent: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '2px'
+  },
+
+  stepTitle: {
+    fontSize: '13px',
+    fontWeight: '600',
+    color: '#25283a'
+  },
+
+  stepDesc: {
+    fontSize: '12px',
+    color: '#555b6e',
+    margin: 0,
+    lineHeight: '1.45'
+  },
+
+  tipDivider: {
+    height: '1px',
+    background: '#e7e2ff',
+    margin: '14px 0 10px 0'
+  },
+
+  tipText: {
+    fontSize: '11px',
+    color: '#717588',
+    lineHeight: '1.45',
+    margin: 0
   },
 
   habitRow: {

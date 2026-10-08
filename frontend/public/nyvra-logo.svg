@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260">
+  <defs>
+    <linearGradient id="purple" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4B3CC4"/>
+      <stop offset="55%" stop-color="#7057E8"/>
+      <stop offset="100%" stop-color="#9A7CFF"/>
+    </linearGradient>
+
+    <linearGradient id="leafGreen" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#61B88A"/>
+      <stop offset="100%" stop-color="#9BCB78"/>
+    </linearGradient>
+
+    <linearGradient id="leafPurple" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7255E5"/>
+      <stop offset="100%" stop-color="#A58BFF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Bloom mark -->
+  <path
+    d="M185 175
+       C135 145 112 101 125 65
+       C163 72 190 104 194 145
+       C195 156 192 166 185 175Z"
+    fill="url(#leafPurple)"
+  />
+
+  <path
+    d="M190 175
+       C184 120 202 68 244 35
+       C270 80 252 130 210 169
+       C203 175 197 177 190 175Z"
+    fill="url(#purple)"
+  />
+
+  <path
+    d="M201 175
+       C232 124 272 101 312 111
+       C298 154 262 180 216 185
+       C210 184 205 181 201 175Z"
+    fill="url(#leafGreen)"
+  />
+
+  <!-- Small center accent -->
+  <circle cx="190" cy="48" r="13" fill="#A58BFF"/>
+
+  <!-- Wordmark -->
+  <text
+    x="340"
+    y="153"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="88"
+    font-weight="600"
+    letter-spacing="-2"
+    fill="#302A7A"
+  >
+    Nyvra
+  </text>
+
+  <text
+    x="344"
+    y="196"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="20"
+    letter-spacing="4"
+    fill="#8581A8"
+  >
+    YOUR MIND. A KINDER PLACE.
+  </text>
+</svg>

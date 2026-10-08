@@ -77,12 +77,24 @@ function Therapists() {
           <div style={styles.headerLeft}>
             <button
               type="button"
-              style={styles.menuButton}
-              aria-label="Open menu"
+              style={styles.helpButton}
+              aria-label="Help and FAQs"
+              onClick={() => navigate('/help')}
             >
-              <span style={styles.menuLine} />
-              <span style={styles.menuLine} />
-              <span style={styles.menuLine} />
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
             </button>
 
             <div
@@ -91,7 +103,15 @@ function Therapists() {
               role="button"
               tabIndex={0}
             >
-              <span style={{ fontSize: '20px' }}>🌿</span>
+              <img
+                src="/nyvra-mark.svg"
+                alt="Nyvra"
+                style={{
+                  width: '30px',
+                  height: '30px',
+                  objectFit: 'contain',
+                }}
+              />
               <span style={styles.logoText}>Nyvra</span>
             </div>
           </div>
@@ -284,7 +304,7 @@ function Therapists() {
         {/* 12. Ethics Disclaimer */}
         <div style={styles.ethicsDisclaimer}>
           <p style={styles.ethicsText}>
-            ⚠️️ Nyvra is not a medical diagnosis tool. If you are struggling, please speak to a mental health professional or someone you trust.
+            ⚠ Nyvra is not a medical diagnosis tool. If you are struggling, please speak to a mental health professional or someone you trust.
           </p>
         </div>
 
@@ -326,25 +346,18 @@ const styles = {
     gap: '12px'
   },
 
-  menuButton: {
-    width: '30px',
-    height: '30px',
-    padding: '5px 3px',
+  helpButton: {
+    width: '32px',
+    height: '32px',
     border: 'none',
     background: 'transparent',
+    color: '#555b6e',
     display: 'flex',
-    flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'center',
-    gap: '4px',
-    cursor: 'pointer'
-  },
-
-  menuLine: {
-    display: 'block',
-    width: '19px',
-    height: '1.8px',
-    borderRadius: '2px',
-    background: '#303444'
+    cursor: 'pointer',
+    borderRadius: '50%',
+    padding: 0
   },
 
   logoRow: {

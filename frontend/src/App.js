@@ -11,6 +11,7 @@ import {
 import Home from './pages/Home';
 import Journal from './pages/Journal';
 import Therapists from './pages/Therapists';
+import Help from './pages/Help';
 import BottomNav from './components/BottomNav';
 import './App.css';
 
@@ -19,7 +20,12 @@ function AuthScreen() {
     <main style={styles.authPage}>
       <section style={styles.authCard}>
         <div style={styles.logo}>
-          🌿 <span>Nyvra</span>
+          <img
+            src="/nyvra-mark.svg"
+            alt="Nyvra"
+            style={styles.authLogoMark}
+          />
+          <span>Nyvra</span>
         </div>
 
         <h1 style={styles.authTitle}>
@@ -85,12 +91,13 @@ function WelcomeTransition({ children }) {
     return (
       <main style={styles.welcomePage}>
         <div style={styles.welcomeContent}>
-          <div style={styles.welcomeLeaf}>
-            🌿
-          </div>
-
           <div style={styles.welcomeBrand}>
-            Nyvra
+            <img
+              src="/nyvra-mark.svg"
+              alt="Nyvra"
+              style={styles.welcomeLogoMark}
+            />
+            <span>Nyvra</span>
           </div>
 
           <h1 style={styles.welcomeTitle}>
@@ -128,6 +135,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/journal" element={<Journal />} />
               <Route path="/therapists" element={<Therapists />} />
+              <Route path="/help" element={<Help />} />
             </Routes>
 
             <BottomNav />
@@ -160,10 +168,20 @@ const styles = {
   },
 
   logo: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '12px',
     color: '#6C63FF',
-    fontSize: '20px',
+    fontSize: '30px',
     fontWeight: '800',
-    marginBottom: '26px',
+    marginBottom: '36px',
+  },
+
+  authLogoMark: {
+    width: '52px',
+    height: '52px',
+    objectFit: 'contain',
   },
 
   authTitle: {
@@ -235,25 +253,22 @@ const styles = {
     animation: 'nyvraWelcomeRise 0.7s ease-out',
   },
 
-  welcomeLeaf: {
-    width: '72px',
-    height: '72px',
-    margin: '0 auto 16px',
+  welcomeBrand: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: '50%',
-    background: '#f0edff',
-    fontSize: '32px',
-    boxShadow: '0 8px 28px rgba(108, 99, 255, 0.12)',
-  },
-
-  welcomeBrand: {
-    marginBottom: '22px',
+    gap: '14px',
+    marginBottom: '34px',
     color: '#6C63FF',
-    fontSize: '17px',
+    fontSize: '30px',
     fontWeight: '800',
     letterSpacing: '0.2px',
+  },
+
+  welcomeLogoMark: {
+    width: '64px',
+    height: '64px',
+    objectFit: 'contain',
   },
 
   welcomeTitle: {
