@@ -872,4 +872,3 @@ Nyvra is an educational and wellness-oriented software project.
 Its outputs are generated using machine-learning and language-analysis techniques and should not be interpreted as medical diagnoses, clinical assessments, or professional medical advice.
 
 The application is designed to support self-reflection and wellness awareness, not to replace qualified mental-health professionals.
-```
